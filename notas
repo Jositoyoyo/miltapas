@@ -1,0 +1,60 @@
+Local
+Ordenar por :
+Mas visitas,
+Mas votos
+Mas cerce de mi
+
+Por cetegoria
+Por ciudad
+
+Requisitos :
+Alta usuario
+
+
+
+Notas
+
+
+Para la entidad Opinion falta el campo titulo
+
+Para la entidad Local 
+	cambiar el campo categoria por tipo
+	Añadir campo ciudad
+	
+Para entidad Usuario
+	path	
+	codigo_seg
+	fecha alta
+	
+Añadir tablar con puntos usuario
+	
+Añadir tabla  con campos 
+	barato, grandes, curiosas
+	
+	
+Tabla usuario
+	Cambiar campos Rol por Roles y nombre por username
+	
+	
+	Secciones
+		Email al registrarte
+		Seguridad
+		Servico ( ofrecer app android )****
+		WebService( SOAP ver recetario )
+	
+		Ultimos locales vistos ( hasta 10 )
+		Locales relacionados ( por categoria )****
+		Registro usuario nuevo y perfil
+	
+	Archivo de configuracion de la aplicacion desde admin
+	
+	MyGym
+	Grupos
+		Mountainbike
+		Runnig
+		Deportes de aventura
+		Fittness
+	Actividades
+		Especial Zumba
+		Cena pica/pica en Serrano 41
+		

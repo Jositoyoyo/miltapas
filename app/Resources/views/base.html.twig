@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html class="ui-mobile">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/WazeTaxi_demo.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/jquery.mobile.icons.min.css') }}" >
+            <link rel="stylesheet" href="{{ asset('css/jquery.mobile.structure-1.4.5.min.css') }}">        
+            <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+           
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="ui-mobile-viewport ui-overlay-a">
+    <div class="ui-page ui-page-theme-a ui-page-active">
+	    {{ include ('header.html.twig') }}
+		<div role="main" class="ui-content ui-body-a" data-role="content" data-theme="a">
+			{% block body %}{% endblock %}
+		</div>
+		
+    </div>
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-1.11.3.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/jquery.mobile-1.4.5.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/fixedheader.js') }}" type="text/javascript"></script>
+    {% endblock %}
+	{% block scripts %}{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,7 @@
+waze_taxi_alerta:
+    resource: "@WazeTaxiBundle/Resources/config/routing/alerta.yml"
+    prefix:   /alerta
+
+waze_taxi_homepage:
+    path:     /
+    defaults: { _controller: WazeTaxiBundle:Default:index }

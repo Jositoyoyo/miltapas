@@ -1,0 +1,3 @@
+miltapas_homepage:
+    path:     /
+    defaults: { _controller: miltapasBundle:Default:index }

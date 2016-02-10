@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<a href="{{ path('alerta_index') }}">Back to the list</a>
+<div id="map" style="width: 100%; height: 300px;"></div>    
+<h2>Formulario 4 personalizado</h2>
+    <form action="#" method="post" > 
+             <div>
+            {{ form_label(form.direccion, 'Introduce tu nombre') }}            
+            {{ form_widget(form.direccion, { 'attr': {'class': 'form-control'} }) }}
+            <small>* Required</small>
+        </div>
+        {{ form_rest(form) }}     
+        <input type="submit" class="btn btn-default" />
+    </form>
+    {{ form_end(form) }}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+<script>
+
+        var map ;         
+        var markers = [[]];
+        function init() {
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                iniMap(pos)
+                getevents();
+
+            });
+        }
+        function getevents() {
+            
+            var mi_posicion = document.getElementById('mi_posicion');
+            var buscar_direccion = document.getElementById('buscar_direccion');
+            
+            mi_posicion.addEventListener('click', function () {
+                navigator.geolocation.getCurrentPosition(function (pos) {
+                    var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                    addMarket(latlng);
+                    map.setCenter(latlng);
+                    document.getElementById('alerta_dateTime').value = timeStamp();
+                });
+            });
+            buscar_direccion.addEventListener('click',function(){
+                buscarDireccion();
+            });
+
+        }
+        function iniMap(pos) {
+            var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            var mapOptions = {
+                zoom: 16,
+            };
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            map.setCenter(latlng);
+            mostrarDireccion(latlng);
+
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                addMarket(event.latLng)
+            });
+
+        }
+        function addMarket(latlng) {
+            console.log(latlng);
+            console.dir(markers[0] + ',' + markers[0].length);
+            if (markers[0].length > 0) {
+                markers[0][0].setMap(null);
+                markers[0] = [];
+            }
+            var marker1 = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                draggable: false
+            });
+            map.setCenter(latlng);
+            mostrarDireccion(latlng);
+            document.getElementById('alerta_dateTime').value = timeStamp();
+            markers[0].push(marker1);
+        }
+        function mostrarDireccion(latlng) {
+            console.dir("Direccion para :" + latlng);
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': latlng}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        console.log(results[0].formatted_address);
+                        document.getElementById("alerta_direccion").value = results[0].formatted_address;
+                        document.getElementById("alerta_coordenadas").value = latlng;
+                    } else {
+                        alert('No results found');
+                    }
+                } else {
+                    console.log('Error 01: Geocoder failed due to: ' + status);
+                }
+            });
+        }
+        function buscarDireccion() {
+            var address = document.getElementById("alerta_direccion").value;
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latlng = results[0].geometry.location;
+                    console.log(latlng);
+                    map.setCenter(latlng);
+                    addMarket(latlng);
+                    document.getElementById("alerta_coordenadas").value = latlng;
+
+                }
+            });
+        }
+        function timeStamp() {
+            return new Date().getTime();
+        }
+        window.addEventListener('load', init());
+
+    </script>
+    {% endblock %}

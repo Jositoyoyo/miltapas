@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Alerta</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Datetime</th>
+                <td>{{ alertum.dateTime }}</td>
+            </tr>
+            <tr>
+                <th>Coordenadas</th>
+                <td>{{ alertum.coordenadas }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ alertum.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ alertum.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ alertum.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('alerta_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('alerta_edit', { 'id': alertum.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

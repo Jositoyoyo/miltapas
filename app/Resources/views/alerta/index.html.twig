@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Alerta list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Datetime</th>
+                <th>Coordenadas</th>
+                <th>Descripcion</th>
+                <th>Direccion</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for alertum in alertas %}
+            <tr>
+                <td><a href="{{ path('alerta_show', { 'id': alertum.id }) }}">{{ alertum.dateTime }}</a></td>
+                <td>{{ alertum.coordenadas }}</td>
+                <td>{{ alertum.descripcion }}</td>
+                <td>{{ alertum.direccion }}</td>
+                <td>{{ alertum.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('alerta_show', { 'id': alertum.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('alerta_edit', { 'id': alertum.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('alerta_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Local</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ local.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ local.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ local.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ local.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Web</th>
+                <td>{{ local.web }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if local.fecha %}{{ local.fecha|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Coordenadas</th>
+                <td>{{ local.coordenadas }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{{ local.img }}</td>
+            </tr>
+            <tr>
+                <th>Publicado</th>
+                <td>{% if local.publicado %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+    	{{ render(
+    		controller('frontBundle:OpinionesAjax:index', 
+    		{ 'local': local.id }))
+    	 }}
+    <ul>
+    <li id="favoritos">
+    	
+    </li>
+        <li>
+            <a href="{{ path('local_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('local_edit', { 'id': local.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+    {{ render(controller('frontBundle:Local:related')) }}
+{% endblock %}
+{% block scripts %}
+<script>
+		var url = '{{ path('ajaxLoad') }}' ;
+		var local = {{ local.id }} ;
+		var favoritos_add = '{{ path('favoritos_add') }}' ;
+</script>
+	<script src="{{ asset('js/opiniones.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Opinion list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Descripcion</th>
+                <th>Img</th>
+                <th>Puntuacion</th>
+                <th>Publicado</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for opinion in opinions %}
+            <tr>
+                <td><a href="{{ path('opinion_show', { 'id': opinion.id }) }}">{{ opinion.id }}</a></td>
+                <td>{{ opinion.descripcion }}</td>
+                <td>{{ opinion.img }}</td>
+                <td>{{ opinion.puntuacion }}</td>
+                <td>{{ opinion.publicado }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('opinion_show', { 'id': opinion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('opinion_edit', { 'id': opinion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('opinion_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

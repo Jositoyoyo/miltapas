@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        
+    </div>
+    <form action="{{ path('mi_posicion') }}" method="GET">
+        <input type="hidden" name="x" value="-3.65641729999993">
+        <input type="hidden" name="y" value="40.4226965">
+        <button>Cerca de mi</button>
+    </form>
+    <ul>
+        <li>Madrid</li>
+        <li>Bilbao</li>
+    </ul>
+    <ul>
+        <li>Tapas</li>
+        <li>Pintxos</li>
+    </ul>
+    <ul>
+        <li>
+            <a href="{{ path('local_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('js/index.js') }}" type="text/javascript"></script>
+{% endblock %}

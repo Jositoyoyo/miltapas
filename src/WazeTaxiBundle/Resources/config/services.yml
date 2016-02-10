@@ -1,0 +1,4 @@
+services:
+#    waze_taxi.example:
+#        class: WazeTaxiBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

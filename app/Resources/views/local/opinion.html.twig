@@ -1,0 +1,11 @@
+<div id="opiniones">
+	{% for opinion in opiniones %}
+		<p>{{ opinion.id }}</div>
+	{% endfor %}
+</div>
+<div id="results"></div>
+<a href="#" id="more">Mas opiniones(5)</a>
+<script>
+		var url = '{{ path('ajaxLoad') }}' ;
+		var count = 1;
+</script>

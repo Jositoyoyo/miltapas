@@ -1,0 +1,39 @@
+security:
+    
+    providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, bd]
+        in_memory:
+            memory:
+                users:
+                    admin: { password: jositoyoyo, roles: 'ROLE_ADMIN' }
+        bd:
+            entity: { class: frontBundle:Usuario, property: nombre }
+                    
+    firewalls:
+       
+        main:
+            anonymous: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path:   /logout
+                target: /local
+                
+    access_control:
+           # - { path: ^/localyyyyy/new, roles: ROLE_ADMIN }
+    
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        frontBundle\Entity\Usuario: 
+            algorithm: plaintext
+            iterations: 1
+            encode_as_base64: false
+            
+    role_hierarchy:
+         ROLE_ADMIN: ROLE_USER
+         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN]
+         ROLE_PREMIUM: [ ROLE_REGISTRADO ]
+    

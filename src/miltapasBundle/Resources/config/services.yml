@@ -1,0 +1,4 @@
+services:
+#    miltapas.example:
+#        class: miltapasBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

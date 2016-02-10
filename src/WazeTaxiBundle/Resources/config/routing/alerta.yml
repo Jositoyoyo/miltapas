@@ -1,0 +1,28 @@
+alerta_index:
+    path:     /
+    defaults: { _controller: "WazeTaxiBundle:Alerta:index" }
+    methods:  GET
+    
+alerta_map:
+    path:     /map
+    defaults: { _controller: "WazeTaxiBundle:Alerta:map" }
+
+alerta_show:
+    path:     /{id}/show
+    defaults: { _controller: "WazeTaxiBundle:Alerta:show" }
+    methods:  GET
+
+alerta_new:
+    path:     /new
+    defaults: { _controller: WazeTaxiBundle:Alerta:new }
+    methods:  [GET, POST]
+
+alerta_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WazeTaxiBundle:Alerta:edit" }
+    methods:  [GET, POST]
+
+alerta_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WazeTaxiBundle:Alerta:delete" }
+    methods:  DELETE

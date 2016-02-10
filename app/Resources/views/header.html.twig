@@ -1,0 +1,49 @@
+<div id='ui-header' class="ui-header ui-bar-inherit" role="banner" data-role="header" data-position="inline">
+    <a role="button" data-role="button" href="#" data-rel="back" class="ui-btn-left ui-alt-icon ui-nodisc-icon ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">Back</a>
+    <a href="#rightpanel3" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-notext">Menu</a>
+    <h1 aria-level="1" role="heading" class="ui-title">Miltapas</h1>
+</div>
+<div class="ui-panel ui-panel-position-right ui-panel-display-overlay ui-body-a ui-panel-animate ui-panel-open" data-role="panel" id="rightpanel3" data-position="rigth" data-display="overlay" data-theme="a">
+    <div class="ui-panel-inner">
+        <ul class="jqm-list ui-alt-icon ui-nodisc-icon ui-listview">
+            <li class="ui-first-child" data-filtertext="demos homepage" data-icon="home">
+                <a class="ui-btn ui-btn-icon-right ui-icon-home" href="/">Inicio</a>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <input value=""/>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="" data-ajax="false">Cerca de mi</a>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="" data-ajax="false">Me gustan</a>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="" data-ajax="false">Escribe una opinion</a>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="" data-ajax="false">iniciar session</a>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <ul class="jqm-list ui-alt-icon ui-nodisc-icon ui-listview">
+                    <li><a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="" data-ajax="false">Madrid</a></li>
+                    <li><a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="" data-ajax="false">Barcelona</a></li>
+                </ul>
+            </li>
+            <li data-filtertext="introduction overview getting started">
+                <a class="ui-btn ui-btn-icon-right ui-icon-carat-r" href="{{ path('local_new') }}">Nuevo Local</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <p class="bg-success">
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('warning') %}
+    <p class="bg-warning">
+        {{ flashMessage }}
+    </p>
+{% endfor %}

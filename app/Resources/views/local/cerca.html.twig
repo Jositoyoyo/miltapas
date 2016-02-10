@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cerca de mi</h1>
+    <div id="loader" class="ui-loader ui-corner-all ui-body-a ui-loader-verbose"><span class="ui-icon-loading"></span><h1>loading</h1></div>
+    <select id="categoria">
+        <option value="1">Tapas</option>
+        <option value="2">Raciones</option>
+    </select>
+    <div id ="content"></div>
+    <ul>
+        <li>
+            <a href="{{ path('local_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block scripts %}
+    <script>
+        var url = "{{ path('ajaxRequest') }}" ;
+    </script>
+    <script src="{{ asset('js/mi_posicion.js') }}" type="text/javascript"></script>
+{% endblock %}

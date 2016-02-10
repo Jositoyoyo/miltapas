@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h4>Filtros</h4>   
+<form action="{{ path('locales_index') }}" method="GET">
+<select name="categoria">
+	<option value="2">Ostras y mariscos</option>
+	<option value="3">Tapas españolas</option>
+</select> 
+<select name="ordenar">
+	<option value="desc">Nuevos primero</option>
+	<option value="asc">Mas antiguos</option>
+</select> 
+<button>Filtrar</button>
+</form>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Web</th>
+                <th>Fecha</th>
+                <th>Coordenadas</th>
+                <th>Img</th>
+                <th>Publicado</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for local in locals %}
+            <tr>
+                <td><a href="{{ path('local_show', { 'id': local.id }) }}">{{ local.id }}</a></td>
+                <td>{{ local.nombre }}</td>
+                <td>{{ local.direccion }}</td>
+                <td>{{ local.telefono }}</td>
+                <td>{{ local.web }}</td>
+                <td>{% if local.fecha %}{{ local.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ local.coordenadas }}</td>
+                <td>{{ local.img }}</td>
+                <td>{% if local.publicado %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('local_show', { 'id': local.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    {% for i in 1..pagesCount %}
+        <li><a href="{{ path('locales_index', {'page': i}) }}">{{ i }}</a></li>
+    {% endfor %}
+    <li><a href="#">&raquo;</a></li>
+</ul>
+<a href="{{ path('local_new') }}">Create a new entry</a>
+     
+{% endblock %}
