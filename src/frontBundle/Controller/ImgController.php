@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use frontBundle\Entity\Img;
-use frontBundle\Form\LocalType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
@@ -49,21 +48,11 @@ class ImgController extends Controller {
     
     /**
      * view Img
-     * @Route("/image/local}", name="view_image")
+     * @Route("/image/view}", name="view_image")
      * @Method("GET")
      */
     public function viewImageAction() {
-        $em = $this->getDoctrine()->getManager();
-        $em->getRepository()->findByLocal(1);
-        $em->setMaxResults(3);
-        if ($related){
-    		$html = '<ul>';
-	    	foreach ($related as $rel){
-	    		$html .= '<li>'.$rel->getNombre().'</li>';
-	    	}
-	    	$html .= '</ul>';
-    	}
-    	return new Response($html);
+       
     }
 
 }
