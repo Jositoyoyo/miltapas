@@ -1,4 +1,3 @@
-{% extends 'base.html.twig' %}
 
 {% block body %}
 
@@ -30,10 +29,7 @@
                 <th>Fecha</th>
                 <td>{% if local.fecha %}{{ local.fecha|date('Y-m-d') }}{% endif %}</td>
             </tr>
-            <tr>
-                <th>Coordenadas</th>
-                <td>{{ local.coordenadas }}</td>
-            </tr>
+            
             <tr>
                 <th>Img</th>
                 <td>{{ local.img }}</td>
@@ -44,10 +40,16 @@
             </tr>
         </tbody>
     </table>
+        {}    
     	{{ render(
     		controller('frontBundle:OpinionesAjax:index', 
     		{ 'local': local.id }))
     	 }}
+         <form action="{{ path('opinion_new') }}" method="POST">
+             <input type="hidden" name="local_id" value="{{ local.id }}" />
+             <button>Opinar sobre este local</button>
+         </form>
+         <a href="{{ path('opinion_new', { 'local_id': local.id }) }}">Opinar sobre este local</a>
     <ul>
     <li id="favoritos">
     	
@@ -64,10 +66,11 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
-    {{ render(controller('frontBundle:Local:related')) }}
+    
 {% endblock %}
 {% block scripts %}
 <script>
+ 
 		var url = '{{ path('ajaxLoad') }}' ;
 		var local = {{ local.id }} ;
 		var favoritos_add = '{{ path('favoritos_add') }}' ;

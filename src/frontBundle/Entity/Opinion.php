@@ -3,7 +3,7 @@
 namespace frontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Opinion
  *
@@ -68,8 +68,24 @@ class Opinion
      * })
      */
     private $local;
-
-
+    
+    /**
+     * @var \file
+     */
+    private $tags;
+    private $file;
+    
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+        $this->file = new ArrayCollection();
+    }
+    public function getTags(){
+        return $this->tags;   
+    }
+    public function getFile(){
+        return $this->file;
+    }
 
     /**
      * Set descripcion

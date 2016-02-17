@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 /**
  * Img controller.
  *
- * @Route("/local")
+ * @Route("/images")
  */
 class ImgController extends Controller {
     /**
@@ -48,10 +48,23 @@ class ImgController extends Controller {
     
     /**
      * view Img
-     * @Route("/image/view}", name="view_image")
+     * @Route("/local", name="images")
      * @Method("GET")
      */
     public function viewImageAction() {
+        
+        $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('frontBundle:Img')->findByLocal(1);
+        $html= "";
+        $path = "http://127.0.0.1/symfony/miltapas/web/uploads/";
+        if ($images){
+    		$html = '<ul>';
+	    	foreach ($images as $img){
+	    		$html .= '<li><img src="'.$path . $img->getPath().'"/></li>';
+	    	}
+	    	$html .= '</ul>';
+    	}
+    	return new Response($html);
        
     }
 

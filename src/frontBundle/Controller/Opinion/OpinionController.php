@@ -1,18 +1,20 @@
 <?php
-
-namespace frontBundle\Controller;
+namespace frontBundle\Controller\Opinion;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use frontBundle\Entity\Opinion;
+use frontBundle\Entity\Tag;
+use frontBundle\Entity\Img;
 use frontBundle\Form\OpinionType;
 
 /**
  * Opinion controller.
  *
- * @Route("/opinion")
+ * @Route("/opinion/show")
  */
 class OpinionController extends Controller
 {
@@ -31,34 +33,7 @@ class OpinionController extends Controller
         return $this->render('opinion/index.html.twig', array(
             'opinions' => $opinions,
         ));
-    }
-
-    /**
-     * Creates a new Opinion entity.
-     *
-     * @Route("/new", name="opinion_new")
-     * @Method({"GET", "POST"})
-     */
-    public function newAction(Request $request)
-    {
-        $opinion = new Opinion();
-        $form = $this->createForm('frontBundle\Form\OpinionType', $opinion);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($opinion);
-            $em->flush();
-
-            return $this->redirectToRoute('opinion_show', array('id' => $opinion->getId()));
-        }
-
-        return $this->render('opinion/new.html.twig', array(
-            'opinion' => $opinion,
-            'form' => $form->createView(),
-        ));
-    }
-
+    }    
     /**
      * Finds and displays a Opinion entity.
      *

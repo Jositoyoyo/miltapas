@@ -1,18 +1,18 @@
-{% extends 'base.html.twig' %}
 
 {% block body %}
 
     <h1>Local list</h1>
     <form action="{{ path('buscar') }}" methos="GET">
-        <select name='ciudad' class="inline-list">
+        <input type="text" value="" placeholder="Escribe una estilo"/>
+        <select name='ciudad' class="inline-list" style="width: 100%;">
             <option value="Madrid">Madrid</option>
             <option value="Barcelona">barcelona</option>
-        </select> 
-        <select name="categoria" class="inline-list">
-            <option value="1">Tapas</option>
         </select>
-        <div>Ordenar ultimos añadidos</div>
-        <input name="nuevos" type="checkbox"/> 
+        <p>
+        Pintxos <input name="nuevos" type="checkbox"/> 
+        Cazuelitas<input name="nuevos" type="checkbox"/> 
+        Patatas bravas<input name="nuevos" type="checkbox"/> 
+        </p>
         <button>Buscar</button>
     </form>
     <table>
@@ -31,30 +31,35 @@
             </tr>
         </thead>
         <tbody>
-        {% for local in locals %}
-            <tr>
-                <td><a href="{{ path('local_show', { 'id': local.id }) }}">{{ local.id }}</a></td>
-                <td>{{ local.nombre }}</td>
-                <td>{{ local.direccion }}</td>
-                <td>{{ local.telefono }}</td>
-                <td>{{ local.web }}</td>
-                <td>{% if local.fecha %}{{ local.fecha|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ local.coordenadasX }}, {{ local.coordenadasY }}, 
-                <td>{% if local.publicado %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('local_show', { 'id': local.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('local_edit', { 'id': local.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for local in locals %}
+                <tr>
+                    <td><a href="{{ path('local_show', { 'id': local.id }) }}">{{ local.id }}</a></td>
+                    <td>{{ local.nombre }}</td>
+                    <td>{{ local.direccion }}</td>
+                    <td>{{ local.telefono }}</td>
+                    <td>{{ local.web }}</td>
+                    <td>{% if local.fecha %}{{ local.fecha|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ local.coordenadasX }}, {{ local.coordenadasY }}, 
+                    <td>{% if local.publicado %}Yes{% else %}No{% endif %}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('local_show', { 'id': local.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('local_edit', { 'id': local.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+        {{current_page}}
+    <ul class="pagination">
+        <li><a href="{{ path('local_index', {'page': 1}) }}">Anteriores</a></li>
+        <li><a href="{{ path('local_index', {'page': 2}) }}">Next</a></li>
+    </ul>
     <ul>
         <li>
             <a href="{{ path('local_new') }}">Create a new entry</a>
@@ -62,5 +67,5 @@
     </ul>
 {% endblock %}
 {% block scripts %}
-	<script src="{{ asset('js/local.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/local.js') }}" type="text/javascript"></script>
 {% endblock %}

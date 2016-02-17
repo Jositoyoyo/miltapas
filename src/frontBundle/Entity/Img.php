@@ -8,9 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Img
- *
  * @ORM\Table(name="img")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="frontBundle\Entity\ImgRepository")
  */
 class Img {
 
@@ -167,5 +166,4 @@ class Img {
             return true;
         }
     }
-
 }

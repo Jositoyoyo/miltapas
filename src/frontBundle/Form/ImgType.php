@@ -5,34 +5,24 @@ namespace frontBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class OpinionType extends AbstractType {
+
+class ImgType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('descripcion');
-        $builder->add('puntuacion');
-       
-        $builder->add('tags', CollectionType::class, array(
-            'entry_type' => TagType::class
-        ));
-        
-        $builder->add('file', CollectionType::class, array(
-            'entry_type' => ImgType::class
-        ));
+        $builder->add('file', FileType::class);
     }
-
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
-                array('data_class' => 'frontBundle\Entity\Opinion')
+                array('data_class' => 'frontBundle\Entity\Img')
                 );
     }
-
 }
