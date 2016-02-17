@@ -25,34 +25,61 @@ class OpinionNewController extends Controller {
     public function indexAction() {
         return $this->render('opinion/new.html.twig');
     }
+
     /**
      * @Route("/local_check", name="local_check")
      * @Method({"GET"})
      */
     public function localCheckAction(Request $request) {
-        $re = $request->get('keys');
-        $locales = $this->getDoctrine()->getRepository('frontBundle:Local')->findBy(
-                array('nombre' => $re), array('id' => 'ASC'), $Limit = 50
-        );
+        $em = $this->getDoctrine()->getManager();
+        $keys = $request->get('keys');
+
+        $query = $em->createQuery(' 
+                SELECT p
+                FROM frontBundle:Local p
+                WHERE p.nombre LIKE :local')
+                ->setParameter('local', "%$keys%");
+        $locales = $query->getResult();
+
         $html = '<ul>';
-        foreach($locales as $local){
-            $html .= '<li>'.$local->getNombre().'</li>';
+        if ($locales) {
+            foreach ($locales as $local) {
+                $html .= '<li '
+                            . 'id="1'.$local->getId().'" '
+                            . 'class="suggest-element" '
+                            . 'data="'. $local->getNombre() . ', ' . $local->getDireccion() . ', ' . $local->getCiudad() . '" '
+                            . 'local="'.$local->getId().'" >'
+                            . $local->getNombre() . ', ' . $local->getDireccion() . ', ' . $local->getCiudad() .                              
+                         '</li>';
+            }
+        } else {
+            $html .= '<li>No hay resultados : <a href="'.$this->get('router')->generate('local_new').'">Añadir un nuevo local</a></li>';
         }
-        $html .= '<ul>';
-        
+        $html .= '</ul>';
+
         return new response($html);
     }
+
     /**
      * @Route("/step_one", name="step_one")
      * @Method({"GET", "POST"})
      */
-    public function stepOneAction() {
+    public function stepOneAction(Request $request) {
+        $local_nombre = $request->request->get('local_nombre');
+        //$direccion = $request->request->get('local_direccion');
+        //$ciudad = $request->request->get('local_ciudad');
         //si el nombre del local, ciudad y la calle son las misma es el mismo 
         $local = $this->getDoctrine()->getRepository('frontBundle:Local')->findBy(
-                array('nombre' => 'Bar el Ideal',
-                      'ciudad' => 'Madrid')
-                );
-        var_dump($local);
-        return new Response('sds');
+                array('nombre' => 'El Molino',
+                    'ciudad' => 'Madrid')
+        );
+
+        if ($local) {
+            return $this->redirect('opinion_add', array('local_id' => 8));
+            //return new Response('Existe el local');
+        } else {
+            return $this->redirect('local_new');
+        }
     }
+
 }

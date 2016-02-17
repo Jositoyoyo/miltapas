@@ -1,53 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Opinion creation</h1>
+    <h2>comentar {{local.nombre}} </h2>
+     {{ form_start(form) }}
 
-    {{ form_start(form) }}
-    {# render the task's only field: description #} 
-    <input type="text" value="" placeholder="Recomendado para" id="keys"/>
-    <div id="suggestions" class="suggestions"></div>
-    <input type="submit" value="Opinar"/>   
-    {{ form_end(form) }}
+        {% if form_errors(form) %}
+            <div class="ui-state-error">{{ form_errors(form) }}</div>
+        {% endif %}
+        <input type="submit" value="Create" />
+        {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('opinion_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}
 {% block scripts %}
     <script>
-        $(window).load(function () {
-
-            $('#keys').keyup(function () {
-
-                var keys = $(this).val();
-                var dataString = 'keys=' + keys;
-                console.log(dataString);
-
-                $.ajax({
-                    method: 'GET',
-                    url: '{{ path('searchTagsCategory') }}',
-                    data: {dataString}
-                })
-                        .done(function (data) {
-                            $('#suggestions').fadeIn(500).html(data);
-                    
-                            $('.suggest-element').bind('click', function () {
-                                var id = $(this).attr('id');
-                                $('#keys').val($('#' + id).attr('data'));
-                                $('#suggestions').fadeOut(500);
-                            });
-                            
-                        })
-                        .always(function () {
-                            console.log('Complete');
-                        })
-                        .fail(function () {
-                            $('#suggestions').fadeIn(500).html('Error');
-                        });
-            });
-        });
+      
     </script>
 {% endblock %}

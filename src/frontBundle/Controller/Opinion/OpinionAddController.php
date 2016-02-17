@@ -20,13 +20,13 @@ class OpinionAddController extends Controller {
 
     /**
      * Creates a new Opinion entity.
-     * @Route("/", name="opinion_new")
+     * @Route("/", name="opinion_add")
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request) {
         //$local_id = $_REQUEST['local_id'];
         $local_id = $request->get('local_id');
-        $local_id = (int)($local_id);
+        $local_id = (int) ($local_id);
         $usuario_id = (int) (1);
 
         $img = new Img();
@@ -43,15 +43,15 @@ class OpinionAddController extends Controller {
         $opinion = new Opinion();
         $opinion->setLocal($local);
         $opinion->setUsuario($usuario);
-        
-        $tag = new Tag();       
+
+        $tag = new Tag();
         $opinion->getTags()->add($tag);
-        
+
         $opinion->getFile()->add($img);
         //var_dump($opinion);
 
         $form = $this->createForm('frontBundle\Form\OpinionType', $opinion);
-        
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,19 +61,19 @@ class OpinionAddController extends Controller {
             $em->persist($img);
             $opinion->setImg($img->getPath());
             $opinion->setPublicado(true);
-            
+
             $em->persist($opinion);
             $em->flush();
             /* Redirect a mis comentarios */
             return $this->redirectToRoute('opinion_show', array('id' => $opinion->getId()));
         }
 
-        return $this->render('opinion/new.html.twig', array(
-                    'opinion' => $opinion,
+        return $this->render('opinion/add.html.twig', array(
+                    'local' => $local,
                     'form' => $form->createView(),
         ));
     }
-    
+
     /**
      * @Route("/searchTagsCategory", name="searchTagsCategory")
      * @Method({"GET", "POST"})
@@ -84,4 +84,5 @@ class OpinionAddController extends Controller {
         $html = '<a class="suggest-element" data="data" id="2">Pincha aqui</a>';
         return new Response($html);
     }
+
 }

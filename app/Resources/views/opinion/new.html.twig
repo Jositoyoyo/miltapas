@@ -1,25 +1,40 @@
-{ # extends 'base.html.twig' # }
+{% extends 'base.html.twig' %}
 {% block body %}
     <div class="ui-content jqm-content" role="main">
-        <h3>Añadir nuevo comentario</h3>
+        <h3>Añadir una opinion</h3>
         <form action="{{ path('step_one') }}" method="POST">
-            <input name="local_nombre" id="local_nombre" type="text" placeholder="Introduce el nombre del local" value=""/>
-            <input tyoe="hidden" id=""/>
+            <input name="keys" id="keys" type="text" placeholder="Introduce el nombre del local" value=""/>
+            <input name="local" id="local" type="hidden" value="" />
             <div id="suggestions"></div>
-            <button>Siguiente</button>
+            <div style="display: none;" id="loading" class="ui-loader ui-corner-all ui-body-a ui-loader-verbose">
+                <span class="ui-icon-loading"></span>
+                <h1>loading</h1>
+            </div>
+            <button id="submit" style="display:none;">Comentar este local</button>
         </form>
+        <button id="check">Comprobar</button>
     </div>
 {% endblock %}
 {% block scripts %}
     <script src="{{ asset('js/new_local.js') }}" type="text/javascript"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
+        var select = false;
         $(window).load(function () {
+            $('#keys').focus(function(){
+                if(select == true){
+                    document.getElementById("keys").value = null;
+                    select= false;
+                    console.log(select);
+                    $('#submit').fadeOut();
+                    $('#check').fadeIn();
+                }
+            });
+            $('#check').click(function () {
 
-            $('#local_nombre').keyup(function () {
-
-                var keys = $(this).val();
+                var keys = $("#keys").val();
                 console.log(keys);
+                $('#loading').fadeIn();
 
                 $.ajax({
                     method: 'GET',
@@ -32,15 +47,23 @@
                             $('.suggest-element').bind('click', function () {
                                 var id = $(this).attr('id');
                                 $('#keys').val($('#' + id).attr('data'));
+                                $('#local').val($('#' + id).attr('local'));
                                 $('#suggestions').fadeOut(500);
+                                select = true;
+                                console.log(select);
+                                $('#check').fadeOut();
+                                $('#submit').fadeIn();
                             });
+                            $('#loading').fadeOut();
 
                         })
                         .always(function () {
                             console.log('Complete');
+                    
                         })
                         .fail(function () {
                             $('#suggestions').fadeIn(500).html('Error');
+                            $('#loading').fadeOut();
                         });
             });
         });

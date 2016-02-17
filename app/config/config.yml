@@ -1,7 +1,5 @@
 imports:
-    - { resource: parameters.yml }
-    - { resource: security.yml }
-    - { resource: services.yml }
+
     - { resource: "@WazeTaxiBundle/Resources/config/services.yml" }
     - { resource: "@miltapasBundle/Resources/config/services.yml" }
     - { resource: "@frontBundle/Resources/config/services.yml" }
@@ -14,7 +12,7 @@ parameters:
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
-    secret:          "%secret%"
+    secret:          "secret"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -45,11 +43,11 @@ twig:
 doctrine:
     dbal:
         driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
+        host:     "localhost"
+        port:     "3306"
+        dbname:   "miltapas"
+        user:     "jositoyoyo"
+        password: "jositoyoyo"
         charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
@@ -65,8 +63,8 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
+    transport: "smtp"
+    host:      "localhost"
+    username:  ""
+    password:  ""
     spool:     { type: memory }

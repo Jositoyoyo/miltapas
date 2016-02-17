@@ -20,7 +20,22 @@ class LocalNewController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request) {
-        
+        $local = new Local();
+        $form = $this->createForm('frontBundle\Form\LocalType', $local);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($local);
+            $em->flush();
+            //return new Response($local->getId());
+            return $this->redirectToRoute('opinion_add', array('local_id' => $local->getId()));
+        }
+
+        return $this->render('local/new.html.twig', array(
+                    'local' => $local,
+                    'form' => $form->createView(),
+        ));
     }
        
 }
